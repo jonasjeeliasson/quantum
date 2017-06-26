@@ -16,9 +16,10 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 before_deploy:
+  - docker build -t  $DOCKER_REGISTRY/quantum.
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" $DOCKER_REGISTRY
   - sh install_setup_kubernetes.sh
-  - cat ${HOME}/.kube/config
-  - docker build -t quantum/quantum .
+  - kubectl get nodes
   - echo I should be pushing the image to somewhere.
 
 deploy:
