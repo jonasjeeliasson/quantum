@@ -18,9 +18,9 @@ after_success:
 before_deploy:
   - echo "$TEST"
   - echo "${DOCKER_REGISTRY}/quantum"
+  - sh install_setup_kubernetes.sh $TEST
   - docker build -t "${DOCKER_REGISTRY}/quantum"
   - docker login -u="${DOCKER_USERNAME}" -p="fakepassword" ${DOCKER_REGISTRY}
-  - sh install_setup_kubernetes.sh
   - kubectl get nodes
   - echo I should be pushing the image to somewhere.
 
