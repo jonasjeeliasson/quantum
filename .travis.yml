@@ -16,8 +16,8 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 before_deploy:
-  - echo "$DOCKER_REGISTRY/quantum"
-  - docker build -t  "$DOCKER_REGISTRY/quantum"
+  - echo "${DOCKER_REGISTRY}/quantum"
+  - docker build -t "${DOCKER_REGISTRY}/quantum"
   - docker login -u="${DOCKER_USERNAME}" -p="fakepassword" ${DOCKER_REGISTRY}
   - sh install_setup_kubernetes.sh
   - kubectl get nodes
