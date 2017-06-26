@@ -1,7 +1,7 @@
 #!/bin/sh
 
-TEST=$1
-echo $TEST
+TEST1=$1
+echo $TEST1
 
 ### Install kubernetes 
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
