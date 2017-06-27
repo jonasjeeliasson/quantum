@@ -12,6 +12,8 @@ cache:
   directories:
     - $HOME/.m2
 
+before_script: echo $TEST2
+
 script: ./install_setup_kubernetes.sh "$TEST2"
 
 after_success:
