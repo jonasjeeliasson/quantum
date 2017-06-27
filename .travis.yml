@@ -13,12 +13,13 @@ after_success:
 before_deploy:
 - sh setup_kubernetes.sh STAGE
 - kubectl get nodes
-- docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
-- docker build -t "${DOCKER_REGISTRY}/quantum" .
+
 deploy:
   - provider: script
     skip_cleanup: true
     script:
+      - docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
+      - docker build -t "${DOCKER_REGISTRY}/quantum" .
       - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
     on:
       branch: master
