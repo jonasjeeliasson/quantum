@@ -1,46 +1,14 @@
 language: java
 dist: trusty
 sudo: required
-
 jdk:
-  - openjdk8
-
+- openjdk8
 services:
-  - docker
-
+- docker
 cache:
   directories:
-    - "$HOME/.m2"
-
-before_script: echo "TEST_SECRET_IN_SETTINGS=$TEST_SECRET_IN_SETTINGS TEST_SECRET_IN_TRAVIS_FILE=$TEST_SECRET_IN_TRAVIS_FILE"
-
-script: ./install_setup_kubernetes.sh "$TEST_SECRET_IN_SETTINGS" "$TEST_SECRET_IN_TRAVIS_FILE"
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-before_deploy:
-  - echo "$TEST"
-  - echo "${DOCKER_REGISTRY}/quantum"
-  - sh install_setup_kubernetes.sh $TEST
-  - docker build -t "${DOCKER_REGISTRY}/quantum"
-  - docker login -u="${DOCKER_USERNAME}" -p="fakepassword" ${DOCKER_REGISTRY}
-  - kubectl get nodes
-  - echo I should be pushing the image to somewhere.
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script:
-      - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
-    on:
-      branch: master
-  - provider: script
-    script:
-      - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
-    on:
-      branch: release
-
+  - "$HOME/.m2"
+before_script: echo "Test secret in settings:" $TEST1 "Test secret from file:" $TEST2
 env:
   global:
-    secure: "F1vCY9xV4GEwCr2GU3Raa7bMziLM+SJASBlJsa0hYz2wmRnub1DaSdqG1/XYmvLPHn2hY7hJ/Qm9REHOpPygIgQZUIkpjHKkmbInjv4XDZplJWhrgIgmB8EUJYoFzOZG9AfLet8+hSSiGA/EUPZAfI2C/JK8LMtOgUgMkc1SRBpwSNFANvp0x1Ell6C0JqYZ6jjPYuAo3KntktFdyFhmucJEE+F2mvgEs4Ztqzq84H/7jeSLYHiMobqJIHQBJXUEmXcwQCviY+W9TuN/AEwUi9Sd9elmjhnlcAgGCo6HiZC0A0L9oSbKhL/6E5fJtFo+354KyB6RmdqoOIzM7ieO0aQiNHm6LGIfWIWXQ/jOh9BCifwTJyn6vYLVh7YPxHIAdO5w6roePAfhuWAoBzOC7u+BGTv0Vz4PaI4D+9DMv3Ixir94eHp6igXfbC4hPTJChUnGmRwBMuuUqcHesWUsQw5kfMnQyrfclHGE7pypnlbgEO1x248l9DzXpCx8fkBmsMXGuelPZAcNe5MqmLKVf0KS0qRcfQ1bJa8cJhkSWT71T7390WDhv4Fs0c5SCOja4g/n4Vtuhaz0OlPeq1n/+oxiwtTi9xWDRqDelHbMvM03ROswZBFc9KP2NNcHKew0T95lG778kVwEdh2624+IdkfFUXjjr8Q+fanV70opsGg="
+    secure: f4q8J8SfigKzv5zN2IZ86W6qZ2LDouWpd4taCJgaYwGa26/yqKklafK8YNKyP1wxApwcPXVNKHwhibFv1J2cWB1U9Z8vXjPAZHeynayI/I3G+3WvNmK8AzG7gYEGs0lrjUQMYkZdtQwNycucPrxHIhd1B61eFoBXQZ22oZlmXEjTLkYGRroeGsxJ4v0SecQAli8ha4ZH3N7uDo5KW72XVfrCfY0eYaRoQ0iLCZywGx1U9yQWVmGNq2XzpZEoz4XL0DonMt9NaxbVlfJExnIzs4elGI+u1dl1Z7v5f+NPCli/rO4ea8cAdpy3bp6blPFBFX3+7XKKGpWkRJMJkSaLjnUsywdaN7dVl5IznuceduhEejaR0WfMXjuf1NviOU7zOopJEA8VtmfrcVcCyH9k0I4yZ6jU0LvUdvQBAy/ahOaR/aIsPqlW8GeWf7fl3neOcNzpXM0PCOw4vGk9aDs6ZnImObUy8E1nUoG//PdOqS7N4weaN1QW9hOhumf8EB/N894RQmxa+3oibijxcac3CiLC8S97oR9JINBkRsQIwGIjhEo8LkZMnb/sX1cnuCA6Ce9jIZf8utTU6lxJKSLvLHkDzBZ4MEKInTfJwF4YbMwbTd3vm8blEW0qLWZIudyU5XSrGx84cg8xB0SwP6wsftnxKwvX8YKUdnl2xgGLCVk=
