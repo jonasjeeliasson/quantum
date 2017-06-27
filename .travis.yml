@@ -14,7 +14,7 @@ cache:
 
 before_script: echo "TEST_SECRET_IN_SETTINGS=$TEST_SECRET_IN_SETTINGS TEST_SECRET_IN_TRAVIS_FILE=$TEST_SECRET_IN_TRAVIS_FILE"
 
-script: ./install_setup_kubernetes.sh "$TEST2"
+script: ./install_setup_kubernetes.sh "$TEST_SECRET_IN_SETTINGS" "$TEST_SECRET_IN_TRAVIS_FILE"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -1,7 +1,8 @@
 #!/bin/sh
 
-TEST1=$1
-echo $TEST1
+FROM_SETTINGS=$1
+FROM_FILE=$2
+echo echo "TEST_SECRET_IN_SETTINGS=$FROM_SETTINGS TEST_SECRET_IN_TRAVIS_FILE=$FROM_FILE"
 
 ### Install kubernetes 
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
