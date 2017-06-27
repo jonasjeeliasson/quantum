@@ -12,8 +12,8 @@ cat > ${HOME}/.kube/config << EOF
 apiVersion: v1
 clusters:
   - cluster:
-      certificate-authority-data: ${CERTIFICATE_AUTHORITY_DATA}
-      server: ${CLUSTER_SERVER}
+      certificate-authority-data: "${CERTIFICATE_AUTHORITY_DATA}"
+      server: "${CLUSTER_SERVER}"
     name: "${CLUSTER_NAME}"
 contexts:
   - context:
@@ -25,7 +25,7 @@ kind: Config
 users:
   - name: "${CLUSTER_NAME}-admin"
     user:
-      client-certificate-data: ${CLIENT_CERTIFICATE_DATA}
-      client-key-data: ${CLIENT_KEY_DATA}
+      client-certificate-data: "${CLIENT_CERTIFICATE_DATA}"
+      client-key-data: "${CLIENT_KEY_DATA}"
 EOF
 
