@@ -11,17 +11,15 @@ cache:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-- sh setup_kubernetes.sh STAGE
+- ./scripts/setup_kubernetes.sh ${TRAVIS_BRANCH}
 - kubectl get nodes
-
 deploy:
   - provider: script
     skip_cleanup: true
-    script: sh deploy.sh STAGE
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
     on:
       branch: master
   - provider: script
-    script:
-      - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
     on:
       branch: release
