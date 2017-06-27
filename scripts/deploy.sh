@@ -2,14 +2,18 @@
 
 BRANCH=$1
 
-if [ "${BRANCH}" == "master" ]; then
-  env="STAGE"
-elif [ "${BRANCH}" == "release" ]; then
-  env="RELEASE"
-else
-  echo "Error: Branch not allowed:" ${BRANCH}
-  exit -1
-fi
+case "${BRANCH}" in
+  master)
+    env="STAGE"
+    ;;
+  release)
+    env="RELEASE"
+    ;;
+  *)
+    echo "Error: Branch not allowed:" ${BRANCH}
+    exit -1
+    ;;
+esac
 
 docker_username=`printenv DOCKER_USERNAME_${env}`
 docker_password=`printenv DOCKER_PASSWORD_${env}`

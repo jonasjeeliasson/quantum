@@ -2,14 +2,18 @@
 
 BRANCH=$1
 
-if [ "${BRANCH}" == "master" ]; then
-  env="STAGE"
-elif [ "${BRANCH}" == "release" ]; then
-  env="RELEASE"
-else
-  echo "Error: Branch not allowed:" ${BRANCH}
-  exit -1
-fi
+case "${BRANCH}" in
+  master)
+    env="STAGE"
+    ;;
+  release)
+    env="RELEASE"
+    ;;
+  *)
+    echo "Error: Branch not allowed:" ${BRANCH}
+    exit -1
+    ;;
+esac
 
 cluster_server=`printenv CLUSTER_SERVER_${env}`
 cluster_name=`printenv CLUSTER_NAME_${env}`
