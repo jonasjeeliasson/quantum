@@ -2,9 +2,9 @@
 
 BRANCH=$1
 
-if [ ${BRANCH} -eq "master" ]; then
+if [ "${BRANCH}" == "master" ]; then
   env=STAGE
-elif [ ${BRANCH} -eq "release" ]; then
+elif [ "${BRANCH}" == "release" ]; then
   env=RELEASE
 else
   echo "Error: Branch not allowed:" ${BRANCH}
