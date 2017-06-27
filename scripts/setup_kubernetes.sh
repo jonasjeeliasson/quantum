@@ -1,6 +1,7 @@
 #!/bin/sh
 
 BRANCH=$1
+echo ${BRANCH}
 
 if [ "${BRANCH}" == "master" ]; then
   env=STAGE
