@@ -3,9 +3,9 @@
 BRANCH=$1
 
 if [ "${BRANCH}" == "master" ]; then
-  env=STAGE
+  env="STAGE"
 elif [ "${BRANCH}" == "release" ]; then
-  env=RELEASE
+  env="RELEASE"
 else
   echo "Error: Branch not allowed:" ${BRANCH}
   exit -1
