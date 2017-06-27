@@ -13,3 +13,4 @@ before_install:
 - cat travis.secrets
 - source travis.secrets
 - echo ${A_TEST}
+- docker pull ${IMAGE_NAME}
