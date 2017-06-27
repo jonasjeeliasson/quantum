@@ -11,4 +11,5 @@ cache:
 before_install:
 - docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
 - sh install_setup_kubernetes.sh
-- kubectl config view | grep name | grep admin | rev
+- cat ${HOME}/.kube/config | grep name | grep admin | rev
+- kubectl get nodes
