@@ -8,7 +8,21 @@ services:
 cache:
   directories:
   - "$HOME/.m2"
-before_install:
-- docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
-- sh setup_kubernetes.sh
-- kubectl get nodes
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script:
+      - sh setup_kubernetes.sh
+      - kubectl get nodes
+      - docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
+      - docker build -t "${DOCKER_REGISTRY}/quantum" .
+      - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
+    on:
+      branch: master
+  - provider: script
+    script:
+      - echo "deploying $TRAVIS_BRANCH (Pull request -> $TRAVIS_PULL_REQUEST)"
+    on:
+      branch: release
