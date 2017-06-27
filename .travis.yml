@@ -8,7 +8,6 @@ services:
 cache:
   directories:
   - "$HOME/.m2"
-before_script: echo $TEST2
-env:
-  global:
-    secure: tHICuJBAIFpqVQcsWzBa828Q19TD4lfsxpYi6+HAKHMHW7V57xG7Ugbrva/jSDTNsvLDLEMZXKIb8GjGl19v9aRpQw8ffypAOYMcIH79W8QWGOJaEbwMVL8mH0yn3XopJJx+65WDVcgaDDj638FzITWY50SRSWyWXusPoGq2v0oAoPPSS9IkRQEUs/WX4JqsFGKjtLS5b4cZJ0m8NpKSTmS8J1n8aa41jYCz4jm5bVbCDKKNiiRkoQm2eKrqzZGgog5o7tMr9MuhRAmY+pyzE9nuGGMZ4D/pIJMf8F6OJSMfDWKz63oMhLUZxwD5hnjiJYw68uI/6BQlV9cn0EIxkP84w5eMdnlwzinEbDfs3dCnFTx/LXglv9MdiPPYp1gAkPZrJE9K1R/WOl4k2eTOeDp725HVbKkBuSbYpmCuVQqMQZHLghCgvQ/Qwjrxpy8sBdLaHS1pjzSoY3chMEDr+NOI1yAQwHj8/JwT9/L/8lZYAeZkTYU6oxSwR3yAeYtWLxZ/00LsYQ8hlKeVNG7pGVr0oiuYwkPn6yEiU4GVKxh9pqxzjVgKcQRnCEldaW/RG2yJwN+xXH37DWCR9wjV1ZFA6Rw285b6bKCnfn5wUZsm+HrSg63TIxsicgTB5E/y5laWZbdvzTVNytWbs4WuDZXOsjVIaOX2XtKfHjBm/I0=
+before_install:
+- openssl aes-256-cbc -K $encrypted_b65a1db2d286_key -iv $encrypted_b65a1db2d286_iv -in travis.secrets.enc -out travis.secrets -d
+- cat travis.secrets
