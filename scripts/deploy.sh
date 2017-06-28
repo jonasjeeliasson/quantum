@@ -20,8 +20,10 @@ esac
 docker_username=`printenv DOCKER_USERNAME_${env}`
 docker_password=`printenv DOCKER_PASSWORD_${env}`
 docker_registry=`printenv DOCKER_REGISTRY_${env}`
+docker_image="${docker_registry}/quantum"
 
 docker login -u=${docker_username} -p=${docker_password} ${docker_registry} && \
-docker build -t ${docker_registry}:"quantum":${VERSION} . && \
-docker push ${docker_registry}:"quantum":${VERSION} && \
-kubectl set image deployment/quantum-deployment quantum=${docker_registry}:"quantum":${VERSION
+docker build -t ${docker_image}:${VERSION} . && \
+docker tag ${docker_image}:${VERSION} ${docker_image}:travis-${BUILD_NUMBER} && \
+docker push ${docker_image} && \
+kubectl set image deployment/quantum-deployment quantum=${docker_image}:${VERSION}
