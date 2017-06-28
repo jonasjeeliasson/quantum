@@ -3,10 +3,10 @@
 BRANCH=$1
 
 case "${BRANCH}" in
-  master)
+  develop)
     env="STAGE"
     ;;
-  release)
+  master)
     env="RELEASE"
     ;;
   *)
