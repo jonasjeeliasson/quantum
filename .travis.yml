@@ -8,26 +8,18 @@ services:
 cache:
   directories:
   - "$HOME/.m2"
-env:
-  global:
-  - COMMIT=${TRAVIS_COMMIT::8}
-before_script:
-- export DOCKER_USERNAME=`./scripts/get_env_for_branch.sh "DOCKER_USERNAME" ${TRAVIS_BRANCH}`
-- export DOCKER_PASSWORD=`./scripts/get_env_for_branch.sh "DOCKER_PASSWORD" ${TRAVIS_BRANCH}`
-- export DOCKER_REGISTRY=`./scripts/get_env_for_branch.sh "DOCKER_REGISTRY" ${TRAVIS_BRANCH}`
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-- docker login -u=${DOCKER_USERNAME} -p=${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
 - ./scripts/setup_kubernetes.sh ${TRAVIS_BRANCH}
 - kubectl get nodes
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${COMMIT::8}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${COMMIT::8}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
     on:
       branch: release
