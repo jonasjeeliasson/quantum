@@ -26,6 +26,4 @@ docker login -u=${docker_username} -p=${docker_password} ${docker_registry} && \
 docker build -t ${docker_image}:${VERSION} . && \
 docker tag ${docker_image}:${VERSION} ${docker_image}:travis-${BUILD_NUMBER} && \
 docker push ${docker_image} && \
-kubectl get deployments && \
-kubectl get services && \
 kubectl set image deployment/quantum-deployment quantum=${docker_image}:${VERSION}
