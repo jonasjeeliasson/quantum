@@ -16,10 +16,10 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8} ${TRAVIS_BUILD_NUMBER}
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8} ${TRAVIS_BUILD_NUMBER}
     on:
       branch: release
