@@ -12,14 +12,13 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
 - ./scripts/setup_kubernetes.sh ${TRAVIS_BRANCH}
-- kubectl get nodes
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8} ${TRAVIS_BUILD_NUMBER}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8}
     on:
       branch: master
   - provider: script
-    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8} ${TRAVIS_BUILD_NUMBER}
+    script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8}
     on:
       branch: release

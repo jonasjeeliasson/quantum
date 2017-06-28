@@ -2,14 +2,15 @@
 
 BRANCH=$1
 VERSION=$2
-BUILD_NUMBER=$3
 
 case "${BRANCH}" in
-  master)
+  develop)
     env="STAGE"
+    tag="latest-staging"
     ;;
-  release)
+  master)
     env="RELEASE"
+    tag="latest"
     ;;
   *)
     echo "Error: Branch not allowed:" ${BRANCH}
@@ -17,13 +18,15 @@ case "${BRANCH}" in
     ;;
 esac
 
-docker_username=`printenv DOCKER_USERNAME_${env}`
-docker_password=`printenv DOCKER_PASSWORD_${env}`
-docker_registry=`printenv DOCKER_REGISTRY_${env}`
-docker_image="${docker_registry}/quantum"
+username=`printenv DOCKER_USERNAME_${env}`
+password=`printenv DOCKER_PASSWORD_${env}`
+registry=`printenv DOCKER_REGISTRY_${env}`
+repo="${registry}/quantum"
+image=${repo}:${VERSION}
 
-docker login -u=${docker_username} -p=${docker_password} ${docker_registry} && \
-docker build -t ${docker_image}:${VERSION} . && \
-docker tag ${docker_image}:${VERSION} ${docker_image}:travis-${BUILD_NUMBER} && \
-docker push ${docker_image} && \
-kubectl set image deployment/quantum-deployment quantum=${docker_image}:${VERSION}
+docker login -u=${username} -p=${password} ${registry} && \
+docker build -t ${image} . && \
+docker tag ${image} ${repo}:${tag} && \
+docker push ${image} && \
+kubectl set image deployment/quantum-deployment quantum=${image} && \
+echo Deployed ${image} to kubernetes cluster
