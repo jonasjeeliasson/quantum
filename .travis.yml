@@ -17,9 +17,9 @@ deploy:
     skip_cleanup: true
     script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8}
     on:
-      branch: master
+      branch: develop
   - provider: script
     skip_cleanup: true
     script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8}
     on:
-      branch: release
+      branch: master

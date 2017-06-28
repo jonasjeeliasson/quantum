@@ -11,6 +11,8 @@ case "${BRANCH}" in
   master)
     env="RELEASE"
     tag="latest"
+    echo "Error: Production not setup yet"
+    exit -1
     ;;
   *)
     echo "Error: Branch not allowed:" ${BRANCH}
