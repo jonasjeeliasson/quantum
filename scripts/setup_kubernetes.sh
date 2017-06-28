@@ -22,11 +22,13 @@ client_certificate_data=`printenv CLIENT_CERTIFICATE_DATA_${env}`
 client_key_data=`printenv CLIENT_KEY_DATA_${env}`
 
 ### Install kubernetes
+echo "Downloading kubernetes binary..."
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 ### Create config
+echo "Creating kubernetes configuration..."
 mkdir ${HOME}/.kube
 cat > ${HOME}/.kube/config << EOF
 ---
