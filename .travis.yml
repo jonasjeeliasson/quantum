@@ -19,6 +19,7 @@ deploy:
     on:
       branch: master
   - provider: script
+    skip_cleanup: true
     script: ./scripts/deploy.sh ${TRAVIS_BRANCH} ${TRAVIS_COMMIT::8}
     on:
       branch: release
